@@ -30,7 +30,6 @@ document.addEventListener('mousemove', draw);
 // canvas.addEventListener("keydown", doKeyDown, true);
 window.addEventListener("keypress", doKeyPress, false)
 function doKeyPress(e) {
-    console.log(e.keyCode)
 
     // b
     if (e.keyCode == 98) {
@@ -56,7 +55,6 @@ function doKeyPress(e) {
 window.addEventListener("keydown", doKeyDown, false)
 function doKeyDown(e) {
 
-    console.log(e.keyCode)
     if (e.keyCode == 38) {
         draw_switch = 0
     }
@@ -84,7 +82,6 @@ function setPosition(e) {
 function resize() {
     ctx.canvas.width = window.innerWidth * 0.75;
     ctx.canvas.height = window.innerHeight * 0.75;
-    console.log("in resize")
 }
 
 function draw(e) {
