@@ -12,6 +12,10 @@ function updateColor(e) {
 }
 // ======================================================
 
+canvas = document.getElementById("canvas")
+var ctx = canvas.getContext('2d');
+resize();
+
 
 //Listeners!!
 //Add a listener for loading the window
@@ -27,11 +31,29 @@ document.addEventListener('mousemove', draw);
 window.addEventListener("keypress", doKeyDown, false)
 function doKeyDown(e) {
     console.log(e.keyCode)
+
+    // b
+    if (e.keyCode == 98) {
+        color = "rgb(0,0,255)"
+    }
+    // r
+    if (e.keyCode == 114) {
+        color = "rgb(255,0,0)"
+    }
+    // g
+    if (e.keyCode == 103) {
+        color = "rgb(0,128,0)"
+    }
+    // y
+    if (e.keyCode == 121) {
+        color = "rgb(255,255,0)"
+    }
+    // space
+    if (e.keyCode == 32) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
 }
 
-canvas = document.getElementById("canvas")
-var ctx = canvas.getContext('2d');
-resize();
 
 // last known position
 var pos = { x: 0, y: 0 };
@@ -44,8 +66,8 @@ var pos = { x: 0, y: 0 };
 
 // new position from mouse event
 function setPosition(e) {
-    pos.x = e.clientX-5;
-    pos.y = e.clientY-6;
+    pos.x = e.clientX - 5;
+    pos.y = e.clientY - 6;
 }
 
 // resize canvas
