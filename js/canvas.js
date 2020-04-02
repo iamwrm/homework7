@@ -1,15 +1,72 @@
 // Variables!
-var color ="red";
+// var color = "red";
+
+
+color = document.getElementById("clr");
+color = "red"
+
+var colorPicker = document.querySelector('#clr');
+colorPicker.addEventListener('change', updateColor);
+
+function updateColor(e) {
+    color = document.getElementById("clr").value;
+}
+
+
 var radius = 15;
 //You will want to add more
 
+canvas = document.getElementById("canvas")
 
 //Listeners!!
 //Add a listener for loading the window
+
 //Add a listener for the mouse movement
+
+document.addEventListener('mousemove', draw);
 //Add a listener for the touch move
+
+// document.addEventListener('mousedown', setPosition);
+
 //Add a listener for the keydown
 
 
-// Functions!
-// I would add a function for draw
+// get canvas 2D context and set him correct size
+var ctx = canvas.getContext('2d');
+resize();
+
+// last known position
+var pos = { x: 0, y: 0 };
+
+// window.addEventListener('resize', resize);
+// window.onbeforeunload = resize
+// window.addEventListener("unload", resize);
+
+// document.addEventListener('mouseenter', setPosition);
+
+// new position from mouse event
+function setPosition(e) {
+    pos.x = e.clientX;
+    pos.y = e.clientY;
+}
+
+// resize canvas
+function resize() {
+    ctx.canvas.width = window.innerWidth * 0.75;
+    ctx.canvas.height = window.innerHeight * 0.75;
+    console.log("in resize")
+}
+
+function draw(e) {
+    ctx.beginPath(); // begin
+
+    ctx.lineWidth = radius;
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = color;
+
+    ctx.moveTo(pos.x, pos.y); // from
+    setPosition(e);
+    ctx.lineTo(pos.x, pos.y); // to
+
+    ctx.stroke(); // draw it!
+}
