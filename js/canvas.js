@@ -17,17 +17,15 @@ var ctx = canvas.getContext('2d');
 resize();
 
 var draw_switch = 1;
-//Listeners!!
 //Add a listener for loading the window
 
 //Add a listener for the mouse movement
-document.addEventListener('mousemove', draw);
-
+canvas.addEventListener('mousemove', move_to_draw, false);
 //Add a listener for the touch move
+canvas.addEventListener('touchmove', move_to_draw, false);
 
 
 //Add a listener for the keydown
-// canvas.addEventListener("keydown", doKeyDown, true);
 window.addEventListener("keypress", doKeyPress, false)
 function doKeyPress(e) {
 
@@ -52,9 +50,10 @@ function doKeyPress(e) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 }
-window.addEventListener("keydown", doKeyDown, false)
-function doKeyDown(e) {
 
+window.addEventListener("keydown", doKeyDown, false)
+
+function doKeyDown(e) {
     if (e.keyCode == 38) {
         draw_switch = 0
     }
@@ -62,21 +61,8 @@ function doKeyDown(e) {
         draw_switch = 1
     }
 }
+// =============================================================
 
-// last known position
-var pos = { x: 0, y: 0 };
-
-// window.addEventListener('resize', resize);
-// window.onbeforeunload = resize
-// window.addEventListener("unload", resize);
-
-// document.addEventListener('mouseenter', setPosition);
-
-// new position from mouse event
-function setPosition(e) {
-    pos.x = e.clientX - 5;
-    pos.y = e.clientY - 6;
-}
 
 // resize canvas
 function resize() {
@@ -84,17 +70,28 @@ function resize() {
     ctx.canvas.height = window.innerHeight * 0.75;
 }
 
-function draw(e) {
+
+
+function drawDot(ctx, x, y) {
+    ctx.fillStyle = color
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, Math.PI * 2, true);
+    ctx.closePath();
+    ctx.fill();
+}
+
+function move_to_draw(e) {
+    if (e.offsetX) {
+        mouseX = e.offsetX;
+        mouseY = e.offsetY;
+    }
+    else if (e.layerX) {
+        mouseX = e.layerX;
+        mouseY = e.layerY;
+    }
+
     if (draw_switch == 1) {
-        ctx.beginPath();
-
-        ctx.lineWidth = radius;
-        ctx.lineCap = 'round';
-        ctx.strokeStyle = color;
-
-        ctx.moveTo(pos.x, pos.y);
-        setPosition(e);
-        ctx.lineTo(pos.x, pos.y);
-        ctx.stroke();
+        drawDot(ctx, mouseX, mouseY);
     }
 }
+
