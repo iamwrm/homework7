@@ -1,7 +1,6 @@
-// Variables!
-// var color = "red";
+var radius = 15;
 
-
+// for color picker
 color = document.getElementById("clr");
 color = "red"
 
@@ -11,27 +10,22 @@ colorPicker.addEventListener('change', updateColor);
 function updateColor(e) {
     color = document.getElementById("clr").value;
 }
+// ======================================================
 
-
-var radius = 15;
-//You will want to add more
-
-canvas = document.getElementById("canvas")
 
 //Listeners!!
 //Add a listener for loading the window
 
 //Add a listener for the mouse movement
-
 document.addEventListener('mousemove', draw);
+
 //Add a listener for the touch move
 
 // document.addEventListener('mousedown', setPosition);
 
 //Add a listener for the keydown
 
-
-// get canvas 2D context and set him correct size
+canvas = document.getElementById("canvas")
 var ctx = canvas.getContext('2d');
 resize();
 
@@ -58,15 +52,15 @@ function resize() {
 }
 
 function draw(e) {
-    ctx.beginPath(); // begin
+    ctx.beginPath();
 
     ctx.lineWidth = radius;
     ctx.lineCap = 'round';
     ctx.strokeStyle = color;
 
-    ctx.moveTo(pos.x, pos.y); // from
+    ctx.moveTo(pos.x, pos.y);
     setPosition(e);
-    ctx.lineTo(pos.x, pos.y); // to
+    ctx.lineTo(pos.x, pos.y);
 
-    ctx.stroke(); // draw it!
+    ctx.stroke();
 }
