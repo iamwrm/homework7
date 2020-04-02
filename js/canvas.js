@@ -21,9 +21,13 @@ document.addEventListener('mousemove', draw);
 
 //Add a listener for the touch move
 
-// document.addEventListener('mousedown', setPosition);
 
 //Add a listener for the keydown
+// canvas.addEventListener("keydown", doKeyDown, true);
+window.addEventListener("keypress", doKeyDown, false)
+function doKeyDown(e) {
+    console.log(e.keyCode)
+}
 
 canvas = document.getElementById("canvas")
 var ctx = canvas.getContext('2d');
@@ -40,8 +44,8 @@ var pos = { x: 0, y: 0 };
 
 // new position from mouse event
 function setPosition(e) {
-    pos.x = e.clientX;
-    pos.y = e.clientY;
+    pos.x = e.clientX-5;
+    pos.y = e.clientY-6;
 }
 
 // resize canvas
