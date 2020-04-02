@@ -16,7 +16,7 @@ canvas = document.getElementById("canvas")
 var ctx = canvas.getContext('2d');
 resize();
 
-
+var draw_switch = 1;
 //Listeners!!
 //Add a listener for loading the window
 
@@ -28,8 +28,8 @@ document.addEventListener('mousemove', draw);
 
 //Add a listener for the keydown
 // canvas.addEventListener("keydown", doKeyDown, true);
-window.addEventListener("keypress", doKeyDown, false)
-function doKeyDown(e) {
+window.addEventListener("keypress", doKeyPress, false)
+function doKeyPress(e) {
     console.log(e.keyCode)
 
     // b
@@ -53,7 +53,17 @@ function doKeyDown(e) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 }
+window.addEventListener("keydown", doKeyDown, false)
+function doKeyDown(e) {
 
+    console.log(e.keyCode)
+    if (e.keyCode == 38) {
+        draw_switch = 0
+    }
+    if (e.keyCode == 40) {
+        draw_switch = 1
+    }
+}
 
 // last known position
 var pos = { x: 0, y: 0 };
@@ -78,15 +88,16 @@ function resize() {
 }
 
 function draw(e) {
-    ctx.beginPath();
+    if (draw_switch == 1) {
+        ctx.beginPath();
 
-    ctx.lineWidth = radius;
-    ctx.lineCap = 'round';
-    ctx.strokeStyle = color;
+        ctx.lineWidth = radius;
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = color;
 
-    ctx.moveTo(pos.x, pos.y);
-    setPosition(e);
-    ctx.lineTo(pos.x, pos.y);
-
-    ctx.stroke();
+        ctx.moveTo(pos.x, pos.y);
+        setPosition(e);
+        ctx.lineTo(pos.x, pos.y);
+        ctx.stroke();
+    }
 }
